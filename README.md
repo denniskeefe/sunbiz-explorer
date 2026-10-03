@@ -35,6 +35,12 @@ env -u PYTHONPATH .venv/bin/python -m pytest -q
 node --test tests/*.mjs
 ```
 
+## Vercel deployment status
+
+`pyproject.toml` declares `backend:app` as the FastAPI entrypoint so Vercel can discover the existing application. Use the **FastAPI** framework preset with the repository root as the Root Directory.
+
+This setting addresses entrypoint discovery only. **The current live-search transport is local-only:** it invokes `browser-use` connected to Chrome on the developer's computer. Deploying the Python app does not provide that connection on Vercel, so hosted live searches are not functional yet. A protected Vercel-only headless-browser feasibility test is prepared locally but has not been deployed or validated. Do not treat a successful build as a working hosted Sunbiz search service.
+
 ## Limits / next steps
 
 - Searches and inspected records only: no claim to find every connection.

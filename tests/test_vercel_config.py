@@ -9,6 +9,12 @@ def test_vercel_config_resolves_the_existing_fastapi_app():
     config_path = root / 'pyproject.toml'
     assert config_path.exists(), 'Missing Vercel entrypoint configuration'
     config = tomllib.loads(config_path.read_text())
+    assert config['project']['name'] == 'sunbiz-explorer'
+    assert config['project']['version']
+    assert config['project']['requires-python'] == '>=3.11,<3.14'
+    assert config['project']['dependencies'] == [
+        line for line in (root / 'requirements.txt').read_text().splitlines() if line
+    ]
     entrypoint = config['tool']['vercel']['entrypoint']
     assert entrypoint == 'backend:app'
     module, variable = entrypoint.split(':')
